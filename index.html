@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+<title>Angular JS Project</title>
+<meta charset="UTF-8">
+<meta name="description" content="Free Web Design for company">
+<meta name="keywords" content="HTML, CSS, XML, JavaScript">
+<meta name="author" content="Ligin Arul">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel = "stylesheet" href = "css/angular-material.min.css">
+<link rel = "stylesheet" href = "css/bootstrap.min.css">
+<link rel = "stylesheet" href = "css/style.css">
+<script src = "js/angular.min.js"></script>
+<script src = "js/jquery.min.js"></script>
+<script src = "js/bootstrap.min.js"></script>
+</head>
+<body ng-app="myApp">
+<!-- slider start -->
+<div  ng-controller="sliderController" class="slider">
+        <div class="slider__wrapper" ng-style="sliderStyle">
+            <div ng-repeat="slides in json.slides track by $index" class="slider__slides" ng-class="$index === active ? 'slider__slides--active' : ''"
+                ng-style="{'background-image':'url({{slides.image}})'}">
+                <div class="slider__overlay">
+                    <div class="slider__content">
+                        <h2 class="slider__content--title" ng-style="setTransitionDelay">
+                            {{slides.title}}
+                        </h2>
+                        <p class="slider__content--desc" ng-style="setTransitionDelay">
+                            {{slides.text}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="pagination" ng-if="showPagination">
+            <ul class="pagination__list">
+                <li ng-repeat="slides in json.slides track by $index" class="pagination__list--item">
+                    <a href="#" ng-click="goToSlide($index)" class="pagination__list--link" ng-class="$index === active ? 'pagination__list--active' : ''">
+                        </a>
+                </li>
+            </ul>
+        </div>
+        <div class="button" ng-if="showButtons">
+            <div class="button__block">
+                <button class="btn btn--prev" ng-click="goToSlide(active - 1)" ng-model="buttonPrevius">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </button>
+            </div>
+            <div class="button__block">
+                <button class="btn btn-next" ng-click="goToSlide(active + 1)" ng-model="buttonNext">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </button>
+            </div>
+        </div>
+    </div>
+<!-- slider end -->
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header" >
+      <img class="logo" src="images/logo.png" width=100/>
+    </div>
+    <ul class="nav navbar-nav">
+<li class="cool-link"><a href="#/!">Home</a></li>
+<li class="cool-link"><a href="#!about">about us</a></li>
+<li class="cool-link"><a href="#!work">Work Knowledge</a></li>
+<li class="cool-link"><a href="#!contact">Contact us</a></li>
+</ul>
+  </div>
+</nav>
+<div ng-view></div>
+</body>
+<script src = "js/angular-route.js"></script>
+<script>
+var app = angular.module("myApp", ["ngRoute"]);
+app.config(function($routeProvider) {
+    $routeProvider
+    .when("/", {
+        templateUrl : "main.htm"
+    })
+    .when("/about", {
+        templateUrl : "red.htm"
+    })
+    .when("/work", {
+        templateUrl : "green.htm"
+    })
+    .when("/contact", {
+        templateUrl : "blue.htm"
+    });
+});
+$('.burger-button').on('click', function(e) {
+  e.preventDefault();
+  
+  $(this).toggleClass('burger-button_active');
+  $('.burger-button-content').toggleClass('burger-button-content_active');
+});
+</script>
+<script src = "js/slider.js"></script>
+
+
+<script src = "js/angular-animate.min.js"></script>
+<script src = "js/angular-aria.min.js"></script>
+<script src = "js/angular-messages.min.js"></script>
+<script src = "js/angular-material.min.js"></script>
+</html>
